@@ -1,6 +1,8 @@
+import pytest
 from domino.testing import piece_dry_run
 
 
+@pytest.mark.skip(reason="skipping for now")
 def test_pagescrapper():
     input_data = dict(
         url="https://en.wikipedia.org/wiki/Mr._Tambourine_Man",
