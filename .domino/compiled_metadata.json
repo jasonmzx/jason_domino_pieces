@@ -1,4 +1,774 @@
 {
+    "LoremIpsumGeneratorPiece": {
+        "name": "LoremIpsumGeneratorPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "text"
+        ],
+        "style": {
+            "node_label": "Lorem Ipsum Generator",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "carbon:character-sentence-case",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "A Piece that generates Lorem Ipsum text.",
+        "input_schema": {
+            "$defs": {
+                "ItemsType": {
+                    "enum": [
+                        "words",
+                        "sentences",
+                        "paragraphs"
+                    ],
+                    "title": "ItemsType",
+                    "type": "string"
+                }
+            },
+            "description": "LoremIpsumGeneratorPiece Input Model",
+            "properties": {
+                "items": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/ItemsType"
+                        }
+                    ],
+                    "default": "words",
+                    "description": "Type of items to generate."
+                },
+                "number_of_items": {
+                    "default": 1,
+                    "description": "Number of items to generate.",
+                    "title": "Number Of Items",
+                    "type": "integer"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "description": "LoremIpsumGeneratorPiece Output Model",
+            "properties": {
+                "output_text": {
+                    "description": "Generated text.",
+                    "title": "Output Text",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "output_text"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/LoremIpsumGeneratorPiece"
+    },
+    "DataConversionPiece": {
+        "name": "DataConversionPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "data",
+            "conversion",
+            "default"
+        ],
+        "style": {
+            "node_label": "Data Conversion Piece",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "icon-park-outline:file-conversion",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Convert data from one format to another",
+        "input_schema": {
+            "$defs": {
+                "DataFormatOption": {
+                    "enum": [
+                        "csv",
+                        "json"
+                    ],
+                    "title": "DataFormatOption",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "input_data": {
+                    "description": "Input data to be converted. Can be a file path or data as string.",
+                    "title": "Input Data",
+                    "type": "string"
+                },
+                "input_data_format": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/DataFormatOption"
+                        }
+                    ],
+                    "default": "csv",
+                    "description": "Input data format to be converted."
+                },
+                "output_data_format": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/DataFormatOption"
+                        }
+                    ],
+                    "default": "json",
+                    "description": "Output data format."
+                }
+            },
+            "required": [
+                "input_data"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "output_file_path": {
+                    "description": "Path to the converted file.",
+                    "title": "Output File Path",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "output_file_path"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/DataConversionPiece"
+    },
+    "GetItemFromArrayPiece": {
+        "name": "GetItemFromArrayPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "array"
+        ],
+        "style": {
+            "node_label": "Get Item From Array",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fluent:tray-item-remove-24-filled",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Get one item from an input array.",
+        "input_schema": {
+            "$defs": {
+                "IndexType": {
+                    "enum": [
+                        "first",
+                        "last",
+                        "random",
+                        "another"
+                    ],
+                    "title": "IndexType",
+                    "type": "string"
+                }
+            },
+            "description": "GetItemFromArrayPiece Input Model",
+            "properties": {
+                "input_array": {
+                    "description": "Input array to get item from.",
+                    "from_upstream": "always",
+                    "items": {},
+                    "title": "Input Array",
+                    "type": "array"
+                },
+                "index": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/IndexType"
+                        }
+                    ],
+                    "default": "first",
+                    "description": "Index of item to get from input array."
+                },
+                "another_index": {
+                    "default": 1,
+                    "description": "Index number of item to get from input array.",
+                    "minimum": 1,
+                    "title": "Another Index",
+                    "type": "integer"
+                }
+            },
+            "required": [
+                "input_array"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "description": "GetItemFromArrayPiece Output Model",
+            "properties": {
+                "output_value": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "items": {},
+                            "type": "array"
+                        },
+                        {
+                            "type": "integer"
+                        },
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "object"
+                        },
+                        {
+                            "format": "date",
+                            "type": "string"
+                        },
+                        {
+                            "format": "time",
+                            "type": "string"
+                        },
+                        {
+                            "format": "date-time",
+                            "type": "string"
+                        }
+                    ],
+                    "description": "Item from input array at specified index.",
+                    "title": "Output Value"
+                }
+            },
+            "required": [
+                "output_value"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/GetItemFromArrayPiece"
+    },
+    "HttpRequestPiece": {
+        "name": "HttpRequestPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "http",
+            "request"
+        ],
+        "style": {
+            "node_label": "HTTP Request",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "material-symbols:send",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Makes a HTTP request to a given URL.",
+        "input_schema": {
+            "$defs": {
+                "MethodTypes": {
+                    "enum": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE"
+                    ],
+                    "title": "MethodTypes",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "url": {
+                    "description": "URL to make a request to.",
+                    "title": "Url",
+                    "type": "string"
+                },
+                "method": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/MethodTypes"
+                        }
+                    ],
+                    "default": "GET",
+                    "description": "HTTP method to use."
+                },
+                "bearer_token": {
+                    "default": null,
+                    "description": "Bearer token to use for authentication.",
+                    "title": "Bearer Token",
+                    "type": "string"
+                },
+                "body_json_data": {
+                    "default": "{\n    \"key_1\": \"value_1\",\n    \"key_2\": \"value_2\"\n}\n",
+                    "description": "JSON data to send in the request body.",
+                    "title": "Body Json Data",
+                    "type": "string",
+                    "widget": "codeeditor-json"
+                }
+            },
+            "required": [
+                "url"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "base64_bytes_data": {
+                    "description": "Output data as base64 encoded string.",
+                    "title": "Base64 Bytes Data",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "base64_bytes_data"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/HttpRequestPiece"
+    },
+    "ImageListFilterPiece": {
+        "name": "ImageListFilterPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "image"
+        ],
+        "style": {
+            "node_label": "Image List Filter",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "ic:twotone-filter",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "A Piece that applies selected image filters to a list of images.",
+        "input_schema": {
+            "$defs": {
+                "OutputTypeType": {
+                    "enum": [
+                        "file",
+                        "base64_string",
+                        "both"
+                    ],
+                    "title": "OutputTypeType",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "input_images": {
+                    "description": "List of input images. Each item should be either a path to a file, or a base64 encoded string.",
+                    "from_upstream": "always",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Input Images",
+                    "type": "array"
+                },
+                "sepia": {
+                    "default": false,
+                    "description": "Apply sepia effect.",
+                    "title": "Sepia",
+                    "type": "boolean"
+                },
+                "black_and_white": {
+                    "default": false,
+                    "description": "Apply black and white effect.",
+                    "title": "Black And White",
+                    "type": "boolean"
+                },
+                "brightness": {
+                    "default": false,
+                    "description": "Apply brightness effect.",
+                    "title": "Brightness",
+                    "type": "boolean"
+                },
+                "darkness": {
+                    "default": false,
+                    "description": "Apply darkness effect.",
+                    "title": "Darkness",
+                    "type": "boolean"
+                },
+                "contrast": {
+                    "default": false,
+                    "description": "Apply contrast effect.",
+                    "title": "Contrast",
+                    "type": "boolean"
+                },
+                "red": {
+                    "default": false,
+                    "description": "Apply red effect.",
+                    "title": "Red",
+                    "type": "boolean"
+                },
+                "green": {
+                    "default": false,
+                    "description": "Apply green effect.",
+                    "title": "Green",
+                    "type": "boolean"
+                },
+                "blue": {
+                    "default": false,
+                    "description": "Apply blue effect.",
+                    "title": "Blue",
+                    "type": "boolean"
+                },
+                "cool": {
+                    "default": false,
+                    "description": "Apply cool effect.",
+                    "title": "Cool",
+                    "type": "boolean"
+                },
+                "warm": {
+                    "default": false,
+                    "description": "Apply warm effect.",
+                    "title": "Warm",
+                    "type": "boolean"
+                },
+                "output_type": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/OutputTypeType"
+                        }
+                    ],
+                    "default": "both",
+                    "description": "Format of the output images. Options are: `file`, `base64_string`, `both`."
+                }
+            },
+            "required": [
+                "input_images"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "image_base64_strings": {
+                    "description": "Base64 encoded strings of the output images.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Image Base64 Strings",
+                    "type": "array"
+                },
+                "image_file_paths": {
+                    "description": "Paths to the output image files.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Image File Paths",
+                    "type": "array"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/ImageListFilterPiece"
+    },
+    "ImageFilterPiece": {
+        "name": "ImageFilterPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "image"
+        ],
+        "style": {
+            "node_label": "Image Filter",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "ic:twotone-filter",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "A Piece that applies selected image filters to an image.",
+        "input_schema": {
+            "$defs": {
+                "OutputTypeType": {
+                    "description": "Output type for the result text",
+                    "enum": [
+                        "file",
+                        "base64_string",
+                        "both"
+                    ],
+                    "title": "OutputTypeType",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "input_image": {
+                    "description": "Input image. It should be either a path to a file, or a base64 encoded string.",
+                    "from_upstream": "always",
+                    "title": "Input Image",
+                    "type": "string"
+                },
+                "sepia": {
+                    "default": false,
+                    "description": "Apply sepia effect.",
+                    "title": "Sepia",
+                    "type": "boolean"
+                },
+                "black_and_white": {
+                    "default": false,
+                    "description": "Apply black and white effect.",
+                    "title": "Black And White",
+                    "type": "boolean"
+                },
+                "brightness": {
+                    "default": false,
+                    "description": "Apply brightness effect.",
+                    "title": "Brightness",
+                    "type": "boolean"
+                },
+                "darkness": {
+                    "default": false,
+                    "description": "Apply darkness effect.",
+                    "title": "Darkness",
+                    "type": "boolean"
+                },
+                "contrast": {
+                    "default": false,
+                    "description": "Apply contrast effect.",
+                    "title": "Contrast",
+                    "type": "boolean"
+                },
+                "red": {
+                    "default": false,
+                    "description": "Apply red effect.",
+                    "title": "Red",
+                    "type": "boolean"
+                },
+                "green": {
+                    "default": false,
+                    "description": "Apply green effect.",
+                    "title": "Green",
+                    "type": "boolean"
+                },
+                "blue": {
+                    "default": false,
+                    "description": "Apply blue effect.",
+                    "title": "Blue",
+                    "type": "boolean"
+                },
+                "cool": {
+                    "default": false,
+                    "description": "Apply cool effect.",
+                    "title": "Cool",
+                    "type": "boolean"
+                },
+                "warm": {
+                    "default": false,
+                    "description": "Apply warm effect.",
+                    "title": "Warm",
+                    "type": "boolean"
+                },
+                "output_type": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/OutputTypeType"
+                        }
+                    ],
+                    "default": "both",
+                    "description": "Format of the output image. Options are: `file`, `base64_string`, `both`."
+                }
+            },
+            "required": [
+                "input_image"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "image_base64_string": {
+                    "default": "",
+                    "description": "Base64 encoded string of the output image.",
+                    "title": "Image Base64 String",
+                    "type": "string"
+                },
+                "image_file_path": {
+                    "default": "",
+                    "description": "Path to the output image file.",
+                    "title": "Image File Path",
+                    "type": "string"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/ImageFilterPiece"
+    },
+    "StringConditionChecksPiece": {
+        "name": "StringConditionChecksPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "string"
+        ],
+        "style": {
+            "node_label": "String Conditions Checks",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "mdi:format-letter-matches",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "A Piece that checks conditions on a string",
+        "input_schema": {
+            "$defs": {
+                "ChecksTypes": {
+                    "enum": [
+                        "contains_case_sensitive",
+                        "contains_case_insensitive",
+                        "length_greater_than",
+                        "length_greater_than_or_equal_to",
+                        "length_less_than",
+                        "length_less_than_or_equal_to",
+                        "length_equal_to",
+                        "regex_match"
+                    ],
+                    "title": "ChecksTypes",
+                    "type": "string"
+                },
+                "LogicalOperators": {
+                    "enum": [
+                        "and",
+                        "or"
+                    ],
+                    "title": "LogicalOperators",
+                    "type": "string"
+                },
+                "OperationItem": {
+                    "properties": {
+                        "operation": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/$defs/ChecksTypes"
+                                }
+                            ],
+                            "description": "Operation to perform.\nOptions: `contains_case_sensitive`, `contains_case_insensitive`, `length_greater_than`, `length_greater_than_or_equal_to`, `length_less_than`, `length_less_than_or_equal_to`, `length_equal_to`, `regex_match`.\n",
+                            "from_upstream": "never"
+                        },
+                        "second_argument": {
+                            "default": "",
+                            "description": "Value for the second argument.\nIf `contains_case_sensitive` or `contains_case_insensitive` are selected, this argument will be used as the string to search for.\nIf `length_greater_than`, `length_greater_than_or_equal_to`, `length_less_than`, `length_less_than_or_equal_to` or `length_equal_to` are selected, this argument will be used as the integer value to compare with.\nIf `regex_match` is selected, this argument will be used as the string to match with the regex pattern.\n",
+                            "title": "Second Argument",
+                            "type": "string"
+                        },
+                        "next_logical_operator": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/$defs/LogicalOperators"
+                                }
+                            ],
+                            "default": "and",
+                            "description": "Logical operator to use with the next operation result."
+                        }
+                    },
+                    "required": [
+                        "operation"
+                    ],
+                    "title": "OperationItem",
+                    "type": "object"
+                }
+            },
+            "properties": {
+                "input_string": {
+                    "description": "Input string.",
+                    "title": "Input String",
+                    "type": "string"
+                },
+                "operations": {
+                    "description": "Sequence of operations to perform.",
+                    "items": {
+                        "$ref": "#/$defs/OperationItem"
+                    },
+                    "title": "Operations",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "input_string",
+                "operations"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "check_result": {
+                    "description": "Result of the checks.",
+                    "title": "Check Result",
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "check_result"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/StringConditionChecksPiece"
+    },
     "SaveImagePiece": {
         "name": "SaveImagePiece",
         "dependency": {
@@ -51,7 +821,202 @@
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/SaveImagePiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/SaveImagePiece"
+    },
+    "ToyDatasetsPiece": {
+        "name": "ToyDatasetsPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "datasets"
+        ],
+        "style": {
+            "node_label": "Toy Datasets",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "lucide:toy-brick",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Load toy datasets from scikit-learn",
+        "input_schema": {
+            "$defs": {
+                "DatasetName": {
+                    "enum": [
+                        "iris",
+                        "diabetes",
+                        "digits",
+                        "wine",
+                        "breast_cancer",
+                        "linnerrud"
+                    ],
+                    "title": "DatasetName",
+                    "type": "string"
+                }
+            },
+            "properties": {
+                "dataset": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/DatasetName"
+                        }
+                    ],
+                    "default": "iris",
+                    "title": "Dataset name"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "file_path": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": null,
+                    "title": "File path"
+                }
+            },
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/ToyDatasetsPiece"
+    },
+    "SleepPiece": {
+        "name": "SleepPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "sleep"
+        ],
+        "style": {
+            "node_label": "Sleep",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-solid:hourglass-start",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "A Piece that sleeps for a given number of seconds.",
+        "input_schema": {
+            "description": "Sleep Piece Input Model",
+            "properties": {
+                "sleep_time": {
+                    "default": 1,
+                    "description": "Number of seconds to sleep",
+                    "title": "Sleep Time",
+                    "type": "number"
+                }
+            },
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "description": "Sleep Piece Output Model",
+            "properties": {
+                "message": {
+                    "description": "Sleep piece executed",
+                    "title": "Message",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "message"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/SleepPiece"
+    },
+    "YDataProfilingPiece": {
+        "name": "YDataProfilingPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "eda"
+        ],
+        "style": {
+            "node_label": "Data Profiling",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "mingcute:profile-line",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Piece that uses ydata-profiling to create fast EDA.",
+        "input_schema": {
+            "properties": {
+                "data_path": {
+                    "description": "Path to the CSV file to be profiled",
+                    "from_upstream": "always",
+                    "title": "CSV file path",
+                    "type": "string"
+                },
+                "report_tile": {
+                    "anyOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "default": "Profiling Report",
+                    "description": "Title of the report",
+                    "title": "Report title"
+                }
+            },
+            "required": [
+                "data_path"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "profile_file_path": {
+                    "description": "Path to the output file.",
+                    "title": "Output file path",
+                    "type": "string"
+                }
+            },
+            "required": [
+                "profile_file_path"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/YDataProfilingPiece"
     },
     "GetDateTimePiece": {
         "name": "GetDateTimePiece",
@@ -163,193 +1128,7 @@
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/GetDateTimePiece"
-    },
-    "CustomPythonPiece": {
-        "name": "CustomPythonPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "python"
-        ],
-        "style": {
-            "node_label": "Custom Python",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fa-brands:python",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Executes user-defined Python code.",
-        "input_schema": {
-            "$defs": {
-                "InputKwargsModel": {
-                    "properties": {
-                        "kwarg_name": {
-                            "default": null,
-                            "description": "Argument name.",
-                            "from_upstream": "never",
-                            "title": "Kwarg Name",
-                            "type": "string"
-                        },
-                        "kwarg_value": {
-                            "anyOf": [
-                                {
-                                    "type": "string"
-                                },
-                                {
-                                    "items": {},
-                                    "type": "array"
-                                },
-                                {
-                                    "type": "integer"
-                                },
-                                {
-                                    "type": "number"
-                                },
-                                {
-                                    "type": "boolean"
-                                },
-                                {
-                                    "type": "object"
-                                },
-                                {
-                                    "format": "date",
-                                    "type": "string"
-                                },
-                                {
-                                    "format": "time",
-                                    "type": "string"
-                                },
-                                {
-                                    "format": "date-time",
-                                    "type": "string"
-                                }
-                            ],
-                            "default": null,
-                            "description": "Argument value.",
-                            "from_upstream": "always",
-                            "title": "Kwarg Value"
-                        }
-                    },
-                    "title": "InputKwargsModel",
-                    "type": "object"
-                },
-                "OutputModifierItemType": {
-                    "description": "OutputArgsType Enum",
-                    "enum": [
-                        "string",
-                        "integer",
-                        "float",
-                        "boolean",
-                        "array"
-                    ],
-                    "title": "OutputModifierItemType",
-                    "type": "string"
-                },
-                "OutputModifierModel": {
-                    "properties": {
-                        "name": {
-                            "description": "Name of the output argument.",
-                            "from_upstream": "never",
-                            "title": "Name",
-                            "type": "string"
-                        },
-                        "type": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/$defs/OutputModifierItemType"
-                                }
-                            ],
-                            "default": "string",
-                            "description": "Type of the output argument.",
-                            "from_upstream": "never"
-                        },
-                        "description": {
-                            "default": "",
-                            "description": "Description of the output argument.",
-                            "from_upstream": "never",
-                            "title": "Description",
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "name"
-                    ],
-                    "title": "OutputModifierModel",
-                    "type": "object"
-                }
-            },
-            "description": "CustomPythonPiece Input Model",
-            "properties": {
-                "input_args": {
-                    "default": [
-                        {
-                            "kwarg_name": "kwarg_2",
-                            "kwarg_value": ""
-                        },
-                        {
-                            "kwarg_name": "kwarg_1",
-                            "kwarg_value": ""
-                        }
-                    ],
-                    "description": "Input arguments.",
-                    "from_upstream": "never",
-                    "items": {
-                        "$ref": "#/$defs/InputKwargsModel"
-                    },
-                    "title": "Input Args",
-                    "type": "array"
-                },
-                "script": {
-                    "default": "# Do not modify the function definition line\ndef custom_function(kwarg_1, kwarg_2):\n    # Write your code here\n    print(f\"First argument: {kwarg_1}\")\n    print(f\"Second argument: {kwarg_2}\")\n\n    # Return the output of the function as an object,\n    # Matching the Output Args defined in the Form below\n    return {\n        \"output_1\": \"this is a string\",\n        \"output_2\": 420\n    }\n",
-                    "description": "Python script.",
-                    "from_upstream": "never",
-                    "title": "Script",
-                    "type": "string",
-                    "widget": "codeeditor-python"
-                },
-                "output_args": {
-                    "default": [
-                        {
-                            "description": "An example string output",
-                            "name": "output_1",
-                            "type": "string"
-                        },
-                        {
-                            "description": "An example integer output",
-                            "name": "output_2",
-                            "type": "integer"
-                        }
-                    ],
-                    "description": "Output arguments.",
-                    "from_upstream": "never",
-                    "items": {
-                        "$ref": "#/$defs/OutputModifierModel"
-                    },
-                    "title": "Output Args",
-                    "type": "array"
-                }
-            },
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "additionalProperties": true,
-            "description": "CustomPythonPiece Output Model",
-            "properties": {},
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/CustomPythonPiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/GetDateTimePiece"
     },
     "LogPiece": {
         "name": "LogPiece",
@@ -584,418 +1363,7 @@
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/LogPiece"
-    },
-    "ImageFilterPiece": {
-        "name": "ImageFilterPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "image"
-        ],
-        "style": {
-            "node_label": "Image Filter",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "ic:twotone-filter",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "A Piece that applies selected image filters to an image.",
-        "input_schema": {
-            "$defs": {
-                "OutputTypeType": {
-                    "description": "Output type for the result text",
-                    "enum": [
-                        "file",
-                        "base64_string",
-                        "both"
-                    ],
-                    "title": "OutputTypeType",
-                    "type": "string"
-                }
-            },
-            "properties": {
-                "input_image": {
-                    "description": "Input image. It should be either a path to a file, or a base64 encoded string.",
-                    "from_upstream": "always",
-                    "title": "Input Image",
-                    "type": "string"
-                },
-                "sepia": {
-                    "default": false,
-                    "description": "Apply sepia effect.",
-                    "title": "Sepia",
-                    "type": "boolean"
-                },
-                "black_and_white": {
-                    "default": false,
-                    "description": "Apply black and white effect.",
-                    "title": "Black And White",
-                    "type": "boolean"
-                },
-                "brightness": {
-                    "default": false,
-                    "description": "Apply brightness effect.",
-                    "title": "Brightness",
-                    "type": "boolean"
-                },
-                "darkness": {
-                    "default": false,
-                    "description": "Apply darkness effect.",
-                    "title": "Darkness",
-                    "type": "boolean"
-                },
-                "contrast": {
-                    "default": false,
-                    "description": "Apply contrast effect.",
-                    "title": "Contrast",
-                    "type": "boolean"
-                },
-                "red": {
-                    "default": false,
-                    "description": "Apply red effect.",
-                    "title": "Red",
-                    "type": "boolean"
-                },
-                "green": {
-                    "default": false,
-                    "description": "Apply green effect.",
-                    "title": "Green",
-                    "type": "boolean"
-                },
-                "blue": {
-                    "default": false,
-                    "description": "Apply blue effect.",
-                    "title": "Blue",
-                    "type": "boolean"
-                },
-                "cool": {
-                    "default": false,
-                    "description": "Apply cool effect.",
-                    "title": "Cool",
-                    "type": "boolean"
-                },
-                "warm": {
-                    "default": false,
-                    "description": "Apply warm effect.",
-                    "title": "Warm",
-                    "type": "boolean"
-                },
-                "output_type": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/OutputTypeType"
-                        }
-                    ],
-                    "default": "both",
-                    "description": "Format of the output image. Options are: `file`, `base64_string`, `both`."
-                }
-            },
-            "required": [
-                "input_image"
-            ],
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "image_base64_string": {
-                    "default": "",
-                    "description": "Base64 encoded string of the output image.",
-                    "title": "Image Base64 String",
-                    "type": "string"
-                },
-                "image_file_path": {
-                    "default": "",
-                    "description": "Path to the output image file.",
-                    "title": "Image File Path",
-                    "type": "string"
-                }
-            },
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/ImageFilterPiece"
-    },
-    "DataConversionPiece": {
-        "name": "DataConversionPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "data",
-            "conversion",
-            "default"
-        ],
-        "style": {
-            "node_label": "Data Conversion Piece",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "icon-park-outline:file-conversion",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Convert data from one format to another",
-        "input_schema": {
-            "$defs": {
-                "DataFormatOption": {
-                    "enum": [
-                        "csv",
-                        "json"
-                    ],
-                    "title": "DataFormatOption",
-                    "type": "string"
-                }
-            },
-            "properties": {
-                "input_data": {
-                    "description": "Input data to be converted. Can be a file path or data as string.",
-                    "title": "Input Data",
-                    "type": "string"
-                },
-                "input_data_format": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/DataFormatOption"
-                        }
-                    ],
-                    "default": "csv",
-                    "description": "Input data format to be converted."
-                },
-                "output_data_format": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/DataFormatOption"
-                        }
-                    ],
-                    "default": "json",
-                    "description": "Output data format."
-                }
-            },
-            "required": [
-                "input_data"
-            ],
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "output_file_path": {
-                    "description": "Path to the converted file.",
-                    "title": "Output File Path",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "output_file_path"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/DataConversionPiece"
-    },
-    "YDataProfilingPiece": {
-        "name": "YDataProfilingPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "eda"
-        ],
-        "style": {
-            "node_label": "Data Profiling",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "mingcute:profile-line",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Piece that uses ydata-profiling to create fast EDA.",
-        "input_schema": {
-            "properties": {
-                "data_path": {
-                    "description": "Path to the CSV file to be profiled",
-                    "from_upstream": "always",
-                    "title": "CSV file path",
-                    "type": "string"
-                },
-                "report_tile": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": "Profiling Report",
-                    "description": "Title of the report",
-                    "title": "Report title"
-                }
-            },
-            "required": [
-                "data_path"
-            ],
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "profile_file_path": {
-                    "description": "Path to the output file.",
-                    "title": "Output file path",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "profile_file_path"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/YDataProfilingPiece"
-    },
-    "StringConditionChecksPiece": {
-        "name": "StringConditionChecksPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "string"
-        ],
-        "style": {
-            "node_label": "String Conditions Checks",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "mdi:format-letter-matches",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "A Piece that checks conditions on a string",
-        "input_schema": {
-            "$defs": {
-                "ChecksTypes": {
-                    "enum": [
-                        "contains_case_sensitive",
-                        "contains_case_insensitive",
-                        "length_greater_than",
-                        "length_greater_than_or_equal_to",
-                        "length_less_than",
-                        "length_less_than_or_equal_to",
-                        "length_equal_to",
-                        "regex_match"
-                    ],
-                    "title": "ChecksTypes",
-                    "type": "string"
-                },
-                "LogicalOperators": {
-                    "enum": [
-                        "and",
-                        "or"
-                    ],
-                    "title": "LogicalOperators",
-                    "type": "string"
-                },
-                "OperationItem": {
-                    "properties": {
-                        "operation": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/$defs/ChecksTypes"
-                                }
-                            ],
-                            "description": "Operation to perform.\nOptions: `contains_case_sensitive`, `contains_case_insensitive`, `length_greater_than`, `length_greater_than_or_equal_to`, `length_less_than`, `length_less_than_or_equal_to`, `length_equal_to`, `regex_match`.\n",
-                            "from_upstream": "never"
-                        },
-                        "second_argument": {
-                            "default": "",
-                            "description": "Value for the second argument.\nIf `contains_case_sensitive` or `contains_case_insensitive` are selected, this argument will be used as the string to search for.\nIf `length_greater_than`, `length_greater_than_or_equal_to`, `length_less_than`, `length_less_than_or_equal_to` or `length_equal_to` are selected, this argument will be used as the integer value to compare with.\nIf `regex_match` is selected, this argument will be used as the string to match with the regex pattern.\n",
-                            "title": "Second Argument",
-                            "type": "string"
-                        },
-                        "next_logical_operator": {
-                            "allOf": [
-                                {
-                                    "$ref": "#/$defs/LogicalOperators"
-                                }
-                            ],
-                            "default": "and",
-                            "description": "Logical operator to use with the next operation result."
-                        }
-                    },
-                    "required": [
-                        "operation"
-                    ],
-                    "title": "OperationItem",
-                    "type": "object"
-                }
-            },
-            "properties": {
-                "input_string": {
-                    "description": "Input string.",
-                    "title": "Input String",
-                    "type": "string"
-                },
-                "operations": {
-                    "description": "Sequence of operations to perform.",
-                    "items": {
-                        "$ref": "#/$defs/OperationItem"
-                    },
-                    "title": "Operations",
-                    "type": "array"
-                }
-            },
-            "required": [
-                "input_string",
-                "operations"
-            ],
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "check_result": {
-                    "description": "Result of the checks.",
-                    "title": "Check Result",
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "check_result"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/StringConditionChecksPiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/LogPiece"
     },
     "PageScrapperPiece": {
         "name": "PageScrapperPiece",
@@ -1083,61 +1451,288 @@
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/PageScrapperPiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/PageScrapperPiece"
     },
-    "SleepPiece": {
-        "name": "SleepPiece",
+    "HttpRequestListPiece": {
+        "name": "HttpRequestListPiece",
         "dependency": {
             "dockerfile": null,
             "requirements_file": "requirements_0.txt"
         },
         "tags": [
             "default",
-            "sleep"
+            "http",
+            "request"
         ],
         "style": {
-            "node_label": "Sleep",
+            "node_label": "HTTP Request List",
             "node_type": "default",
             "node_style": {
                 "backgroundColor": "#ebebeb"
             },
             "useIcon": true,
-            "icon_class_name": "fa-solid:hourglass-start",
+            "icon_class_name": "material-symbols:send",
             "iconStyle": {
                 "cursor": "pointer"
             }
         },
-        "description": "A Piece that sleeps for a given number of seconds.",
+        "description": "Makes HTTP requests to a list of URLs using the same method and credentials.",
         "input_schema": {
-            "description": "Sleep Piece Input Model",
+            "$defs": {
+                "MethodTypes": {
+                    "enum": [
+                        "GET",
+                        "POST",
+                        "PUT",
+                        "DELETE"
+                    ],
+                    "title": "MethodTypes",
+                    "type": "string"
+                }
+            },
             "properties": {
-                "sleep_time": {
-                    "default": 1,
-                    "description": "Number of seconds to sleep",
-                    "title": "Sleep Time",
-                    "type": "number"
+                "urls": {
+                    "description": "List of URLs to make requests to.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Urls",
+                    "type": "array"
+                },
+                "method": {
+                    "allOf": [
+                        {
+                            "$ref": "#/$defs/MethodTypes"
+                        }
+                    ],
+                    "default": "GET",
+                    "description": "HTTP method to use for all requests."
+                },
+                "bearer_token": {
+                    "default": null,
+                    "description": "Bearer token to use for authentication.",
+                    "title": "Bearer Token",
+                    "type": "string"
+                },
+                "body_json_data": {
+                    "default": "{\n    \"key_1\": \"value_1\",\n    \"key_2\": \"value_2\"\n}\n",
+                    "description": "JSON data to send in the request body (applied to all requests).",
+                    "title": "Body Json Data",
+                    "type": "string",
+                    "widget": "codeeditor-json"
+                }
+            },
+            "required": [
+                "urls"
+            ],
+            "title": "InputModel",
+            "type": "object"
+        },
+        "output_schema": {
+            "properties": {
+                "base64_bytes_data_list": {
+                    "description": "Output data for each URL as a list of base64 encoded strings.",
+                    "items": {
+                        "type": "string"
+                    },
+                    "title": "Base64 Bytes Data List",
+                    "type": "array"
+                }
+            },
+            "required": [
+                "base64_bytes_data_list"
+            ],
+            "title": "OutputModel",
+            "type": "object"
+        },
+        "secrets_schema": null,
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/HttpRequestListPiece"
+    },
+    "CustomPythonPiece": {
+        "name": "CustomPythonPiece",
+        "dependency": {
+            "dockerfile": null,
+            "requirements_file": "requirements_0.txt"
+        },
+        "tags": [
+            "default",
+            "python"
+        ],
+        "style": {
+            "node_label": "Custom Python",
+            "node_type": "default",
+            "node_style": {
+                "backgroundColor": "#ebebeb"
+            },
+            "useIcon": true,
+            "icon_class_name": "fa-brands:python",
+            "iconStyle": {
+                "cursor": "pointer"
+            }
+        },
+        "description": "Executes user-defined Python code.",
+        "input_schema": {
+            "$defs": {
+                "InputKwargsModel": {
+                    "properties": {
+                        "kwarg_name": {
+                            "default": null,
+                            "description": "Argument name.",
+                            "from_upstream": "never",
+                            "title": "Kwarg Name",
+                            "type": "string"
+                        },
+                        "kwarg_value": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "items": {},
+                                    "type": "array"
+                                },
+                                {
+                                    "type": "integer"
+                                },
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "object"
+                                },
+                                {
+                                    "format": "date",
+                                    "type": "string"
+                                },
+                                {
+                                    "format": "time",
+                                    "type": "string"
+                                },
+                                {
+                                    "format": "date-time",
+                                    "type": "string"
+                                }
+                            ],
+                            "default": null,
+                            "description": "Argument value.",
+                            "from_upstream": "always",
+                            "title": "Kwarg Value"
+                        }
+                    },
+                    "title": "InputKwargsModel",
+                    "type": "object"
+                },
+                "OutputModifierItemType": {
+                    "description": "OutputArgsType Enum",
+                    "enum": [
+                        "string",
+                        "integer",
+                        "float",
+                        "boolean",
+                        "array"
+                    ],
+                    "title": "OutputModifierItemType",
+                    "type": "string"
+                },
+                "OutputModifierModel": {
+                    "properties": {
+                        "name": {
+                            "description": "Name of the output argument.",
+                            "from_upstream": "never",
+                            "title": "Name",
+                            "type": "string"
+                        },
+                        "type": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/$defs/OutputModifierItemType"
+                                }
+                            ],
+                            "default": "string",
+                            "description": "Type of the output argument.",
+                            "from_upstream": "never"
+                        },
+                        "description": {
+                            "default": "",
+                            "description": "Description of the output argument.",
+                            "from_upstream": "never",
+                            "title": "Description",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "name"
+                    ],
+                    "title": "OutputModifierModel",
+                    "type": "object"
+                }
+            },
+            "description": "CustomPythonPiece Input Model",
+            "properties": {
+                "input_args": {
+                    "default": [
+                        {
+                            "kwarg_name": "kwarg_2",
+                            "kwarg_value": ""
+                        },
+                        {
+                            "kwarg_name": "kwarg_1",
+                            "kwarg_value": ""
+                        }
+                    ],
+                    "description": "Input arguments.",
+                    "from_upstream": "never",
+                    "items": {
+                        "$ref": "#/$defs/InputKwargsModel"
+                    },
+                    "title": "Input Args",
+                    "type": "array"
+                },
+                "script": {
+                    "default": "# Do not modify the function definition line\ndef custom_function(kwarg_1, kwarg_2):\n    # Write your code here\n    print(f\"First argument: {kwarg_1}\")\n    print(f\"Second argument: {kwarg_2}\")\n\n    # Return the output of the function as an object,\n    # Matching the Output Args defined in the Form below\n    return {\n        \"output_1\": \"this is a string\",\n        \"output_2\": 420\n    }\n",
+                    "description": "Python script.",
+                    "from_upstream": "never",
+                    "title": "Script",
+                    "type": "string",
+                    "widget": "codeeditor-python"
+                },
+                "output_args": {
+                    "default": [
+                        {
+                            "description": "An example string output",
+                            "name": "output_1",
+                            "type": "string"
+                        },
+                        {
+                            "description": "An example integer output",
+                            "name": "output_2",
+                            "type": "integer"
+                        }
+                    ],
+                    "description": "Output arguments.",
+                    "from_upstream": "never",
+                    "items": {
+                        "$ref": "#/$defs/OutputModifierModel"
+                    },
+                    "title": "Output Args",
+                    "type": "array"
                 }
             },
             "title": "InputModel",
             "type": "object"
         },
         "output_schema": {
-            "description": "Sleep Piece Output Model",
-            "properties": {
-                "message": {
-                    "description": "Sleep piece executed",
-                    "title": "Message",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "message"
-            ],
+            "additionalProperties": true,
+            "description": "CustomPythonPiece Output Model",
+            "properties": {},
             "title": "OutputModel",
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/SleepPiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/CustomPythonPiece"
     },
     "StringOperationsPiece": {
         "name": "StringOperationsPiece",
@@ -1244,80 +1839,7 @@
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/StringOperationsPiece"
-    },
-    "ToyDatasetsPiece": {
-        "name": "ToyDatasetsPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "datasets"
-        ],
-        "style": {
-            "node_label": "Toy Datasets",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "lucide:toy-brick",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Load toy datasets from scikit-learn",
-        "input_schema": {
-            "$defs": {
-                "DatasetName": {
-                    "enum": [
-                        "iris",
-                        "diabetes",
-                        "digits",
-                        "wine",
-                        "breast_cancer",
-                        "linnerrud"
-                    ],
-                    "title": "DatasetName",
-                    "type": "string"
-                }
-            },
-            "properties": {
-                "dataset": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/DatasetName"
-                        }
-                    ],
-                    "default": "iris",
-                    "title": "Dataset name"
-                }
-            },
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "file_path": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "type": "null"
-                        }
-                    ],
-                    "default": null,
-                    "title": "File path"
-                }
-            },
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/ToyDatasetsPiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/StringOperationsPiece"
     },
     "ToStringPiece": {
         "name": "ToStringPiece",
@@ -1406,287 +1928,6 @@
             "type": "object"
         },
         "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/ToStringPiece"
-    },
-    "LoremIpsumGeneratorPiece": {
-        "name": "LoremIpsumGeneratorPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "text"
-        ],
-        "style": {
-            "node_label": "Lorem Ipsum Generator",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "carbon:character-sentence-case",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "A Piece that generates Lorem Ipsum text.",
-        "input_schema": {
-            "$defs": {
-                "ItemsType": {
-                    "enum": [
-                        "words",
-                        "sentences",
-                        "paragraphs"
-                    ],
-                    "title": "ItemsType",
-                    "type": "string"
-                }
-            },
-            "description": "LoremIpsumGeneratorPiece Input Model",
-            "properties": {
-                "items": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/ItemsType"
-                        }
-                    ],
-                    "default": "words",
-                    "description": "Type of items to generate."
-                },
-                "number_of_items": {
-                    "default": 1,
-                    "description": "Number of items to generate.",
-                    "title": "Number Of Items",
-                    "type": "integer"
-                }
-            },
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "description": "LoremIpsumGeneratorPiece Output Model",
-            "properties": {
-                "output_text": {
-                    "description": "Generated text.",
-                    "title": "Output Text",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "output_text"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/LoremIpsumGeneratorPiece"
-    },
-    "GetItemFromArrayPiece": {
-        "name": "GetItemFromArrayPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "array"
-        ],
-        "style": {
-            "node_label": "Get Item From Array",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "fluent:tray-item-remove-24-filled",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Get one item from an input array.",
-        "input_schema": {
-            "$defs": {
-                "IndexType": {
-                    "enum": [
-                        "first",
-                        "last",
-                        "random",
-                        "another"
-                    ],
-                    "title": "IndexType",
-                    "type": "string"
-                }
-            },
-            "description": "GetItemFromArrayPiece Input Model",
-            "properties": {
-                "input_array": {
-                    "description": "Input array to get item from.",
-                    "from_upstream": "always",
-                    "items": {},
-                    "title": "Input Array",
-                    "type": "array"
-                },
-                "index": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/IndexType"
-                        }
-                    ],
-                    "default": "first",
-                    "description": "Index of item to get from input array."
-                },
-                "another_index": {
-                    "default": 1,
-                    "description": "Index number of item to get from input array.",
-                    "minimum": 1,
-                    "title": "Another Index",
-                    "type": "integer"
-                }
-            },
-            "required": [
-                "input_array"
-            ],
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "description": "GetItemFromArrayPiece Output Model",
-            "properties": {
-                "output_value": {
-                    "anyOf": [
-                        {
-                            "type": "string"
-                        },
-                        {
-                            "items": {},
-                            "type": "array"
-                        },
-                        {
-                            "type": "integer"
-                        },
-                        {
-                            "type": "number"
-                        },
-                        {
-                            "type": "boolean"
-                        },
-                        {
-                            "type": "object"
-                        },
-                        {
-                            "format": "date",
-                            "type": "string"
-                        },
-                        {
-                            "format": "time",
-                            "type": "string"
-                        },
-                        {
-                            "format": "date-time",
-                            "type": "string"
-                        }
-                    ],
-                    "description": "Item from input array at specified index.",
-                    "title": "Output Value"
-                }
-            },
-            "required": [
-                "output_value"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/GetItemFromArrayPiece"
-    },
-    "HttpRequestPiece": {
-        "name": "HttpRequestPiece",
-        "dependency": {
-            "dockerfile": null,
-            "requirements_file": "requirements_0.txt"
-        },
-        "tags": [
-            "default",
-            "http",
-            "request"
-        ],
-        "style": {
-            "node_label": "HTTP Request",
-            "node_type": "default",
-            "node_style": {
-                "backgroundColor": "#ebebeb"
-            },
-            "useIcon": true,
-            "icon_class_name": "material-symbols:send",
-            "iconStyle": {
-                "cursor": "pointer"
-            }
-        },
-        "description": "Makes a HTTP request to a given URL.",
-        "input_schema": {
-            "$defs": {
-                "MethodTypes": {
-                    "enum": [
-                        "GET",
-                        "POST",
-                        "PUT",
-                        "DELETE"
-                    ],
-                    "title": "MethodTypes",
-                    "type": "string"
-                }
-            },
-            "properties": {
-                "url": {
-                    "description": "URL to make a request to.",
-                    "title": "Url",
-                    "type": "string"
-                },
-                "method": {
-                    "allOf": [
-                        {
-                            "$ref": "#/$defs/MethodTypes"
-                        }
-                    ],
-                    "default": "GET",
-                    "description": "HTTP method to use."
-                },
-                "bearer_token": {
-                    "default": null,
-                    "description": "Bearer token to use for authentication.",
-                    "title": "Bearer Token",
-                    "type": "string"
-                },
-                "body_json_data": {
-                    "default": "{\n    \"key_1\": \"value_1\",\n    \"key_2\": \"value_2\"\n}\n",
-                    "description": "JSON data to send in the request body.",
-                    "title": "Body Json Data",
-                    "type": "string",
-                    "widget": "codeeditor-json"
-                }
-            },
-            "required": [
-                "url"
-            ],
-            "title": "InputModel",
-            "type": "object"
-        },
-        "output_schema": {
-            "properties": {
-                "base64_bytes_data": {
-                    "description": "Output data as base64 encoded string.",
-                    "title": "Base64 Bytes Data",
-                    "type": "string"
-                }
-            },
-            "required": [
-                "base64_bytes_data"
-            ],
-            "title": "OutputModel",
-            "type": "object"
-        },
-        "secrets_schema": null,
-        "source_url": "https://github.com/Tauffer-Consulting/default_domino_pieces/tree/main/pieces/HttpRequestPiece"
+        "source_url": "https://github.com/jasonmzx/jason_domino_pieces/tree/main/pieces/ToStringPiece"
     }
 }
