@@ -1,0 +1,16 @@
+{
+    "name": "HttpRequestListPiece",
+    "description": "Makes HTTP requests to a list of URLs using the same method and credentials.",
+    "dependency": {
+        "requirements_file": "requirements_0.txt"
+    },
+    "tags": [
+        "default",
+        "http",
+        "request"
+    ],
+    "style": {
+        "node_label": "HTTP Request List",
+        "icon_class_name": "material-symbols:send"
+    }
+}
