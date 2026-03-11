@@ -25,6 +25,6 @@
             "ToStringPiece"
         ],
         "secrets": [],
-        "source_image": "ghcr.io/tauffer-consulting/default_domino_pieces:0.8.3-group0"
+        "source_image": "ghcr.io/jasonmzx/jason_domino_pieces:0.8.4-group0"
     }
 }
